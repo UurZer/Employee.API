@@ -1,0 +1,21 @@
+version: '3.8'
+services: 
+    sql1:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        environment: 
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Bob.15852-"
+            MSSQL_PID: Express
+        ports: 
+            - "1433:1433"
+    employeeapi:
+        build: .
+        depends_on: 
+            - sql1
+        environment: 
+            ServerName: "sql1"
+            Database: "Employee"
+            UserName: "SA"
+            Password: "Bob.15852-"
+        ports: 
+            - "80:80"
