@@ -45,28 +45,24 @@ namespace Employee.API
             services.AddScoped<ITaskProvider, TaskProvider>();
             services.AddScoped<ITaskRepository, TaskRepository>();
 
-            services.(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
             services.AddDbContext<EmployeeContext>(options =>
             {              
-                //var server = Configuration["ServerName"];
-                //var port = "1433";
-                //var database = Configuration["Database"];
-                //var user = Configuration["UserName"];
-                //var password = Configuration["Password"];
+                var server = Configuration["ServerName"];
+                var port = "1433";
+                var database = Configuration["Database"];
+                var user = Configuration["UserName"];
+                var password = Configuration["Password"];
 
-                //Console.WriteLine("Server is " + server);
-                //Console.WriteLine("Database is " + database);
-                //Console.WriteLine("Username is " + user);
-                //Console.WriteLine("Password is " + password);
+                Console.WriteLine("Server is " + server);
+                Console.WriteLine("Database is " + database);
+                Console.WriteLine("Username is " + user);
+                Console.WriteLine("Password is " + password);
                 
                 
-                //options.UseSqlServer(
-                //    $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}",
-                //    sqlServer => sqlServer.MigrationsAssembly("Employee.API"));
-                options.UseSqlServer(@"Server=LAPTOP-OLL6HKD6\SQLEXPRESS;Database=Employee;Trusted_Connection=true");
+                options.UseSqlServer(
+                    $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}",
+                    sqlServer => sqlServer.MigrationsAssembly("Employee.API"));
+                options.UseSqlServer(@"Server=LAPTOP-OLL6HKD6\SQLEXPRESS;Database=Employee;Trusted_Connection=true");//LOCALDE Çalışa bilmesi için
                
             }); 
         }
